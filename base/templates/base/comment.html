@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<br>
+<br>
+<br>
+<br>
+
+<div class="col-md-4">
+    <div style="margin: 10px">
+
+
+
+        {% if not customer.comments.all %}
+        <a href="">
+            <h3>Add Comment</h3>
+        </a>
+        <div class="'form-group">
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-secondary">add comment</button>
+            </form>
+
+        </div>
+        {% else %}
+
+        {% for comment in customer.comments.all %}
+
+        <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
+        <br>
+        {{ comment.body }}
+
+        {% endfor %}
+
+
+        {% endif %}
+
+
+    </div>
+</div>
+
+{% endblock content %}

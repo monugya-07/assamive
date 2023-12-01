@@ -1,0 +1,65 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% load static %}
+
+{% load cart %}
+
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+    <div class="border rounded p-4 m-4">
+
+        <!-- {{products}} -->
+
+        <p class="display-4">Cart</p>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sno.</th>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price(₹)</th>
+                    <th>Quantity</th>
+                    <th>Total(₹)</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for product in products %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><img style="height: 80px;" src="{{product.image.url}}" alt=""></td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product|cart_quantity:request.session.cart}}</td>
+                    <td>{{product|price_total:request.session.cart}}</td>
+
+                </tr>
+
+                {% endfor %}
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th colspan="3"></th>
+                    <th class="text-center" colspan="">Total Price(₹): </th>
+                    <th>₹: {{products|total_cart_price:request.session.cart}}</th>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="m-3 p-3">
+            <form action="{% url 'checkout' %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-primary" value="start booking">
+            </form>
+        </div>
+    </div>
+
+    {% endblock content %}
