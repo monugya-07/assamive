@@ -1,3 +1,3 @@
 # assamive
 
-Real files are available in the master branch 
+All the files are available in the master branch 
